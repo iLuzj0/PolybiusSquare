@@ -8,52 +8,18 @@
 
 int main()
 {
-    AlphabetChanger Test;
+    AlphabetChanger AlphabetConfigurator;
 
     std::array<char, 26> Alphabet = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-    std::array<std::array<char, 5>, 5> PolybiusSquare = Test.ShuffleAlpabet(Alphabet);
-	for (int j = 0; j < 6; j++)
-	{
-		if(j == 0)
-		{
-			std::cout << " |   | ";
-		}
-		else
-		{
-			std::cout << " | " << j << " | ";
-		}
-		for (int z = 0; z < 6; z++)
-		{
-			if(j == 0 && z != 5)
-			{
-				std::cout << " | " << z + 1 << " | ";
-			}
-			if(j > 0 && z > 0)
-			{
-				std::cout << " | " << PolybiusSquare[j - 1][z - 1] << " | ";
-			}
-		}
-		std::cout << std::endl << std::endl;
-	}
+    std::array<std::array<char, 5>, 5> PolybiusSquare = AlphabetConfigurator.ShuffleAlpabet(Alphabet);
+	AlphabetConfigurator.PrintPolybious(PolybiusSquare);
+
 	std::string toEncrypt;
 	std::cout << "Podaj tekst do zaszyfrowania: ";
 	std::cin >>toEncrypt;
-	std::string Encrypted;
-    for (auto Letter : toEncrypt)
-    {
-		for (int j = 0; j < 5; j++)
-		{
-			for (int z = 0; z < 5; z++)
-			{
-				if(PolybiusSquare[j][z] == Letter)
-				{
-					Encrypted.append(std::to_string(j + 1 )).append(std::to_string(z + 1)).append(" ");
-				}
-			}
-		}
-    }
-	std::cout << Encrypted;
+	
+	std::cout << AlphabetConfigurator.EncryptMessage(toEncrypt, PolybiusSquare);
 
 }
 
